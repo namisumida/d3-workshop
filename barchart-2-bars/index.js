@@ -2,7 +2,7 @@ var svg = d3.select("#svg-barchart");
 // Set margins - having margins makes elements more spaced out and visually nicer
 var marginLeft = 30;
 var marginRight = 30;
-var marginTop = 30;
+var marginTop = 10;
 var marginBottom = 30;
 var axisLabelWidth = 80;
 var dataLabelWidth = 20;
@@ -42,7 +42,7 @@ d3.csv('nexusblitzdata.csv', rowConverter, function(data) {
                  .range([1, maxBarWidth]); // range is an array with the min x coordinate and max x coordinate
 
    // Create bars
-   svg.selectAll("myElements")
+   svg.selectAll("bars")
       .data(dataset)
       .enter()
       .append("rect") // element type rectangle
