@@ -1,12 +1,4 @@
 var svg = d3.select("#svg-barchart");
-// Set margins - having margins makes elements more spaced out and visually nicer
-var marginLeft = 30;
-var marginRight = 30;
-var marginTop = 30;
-var marginBottom = 30;
-var axisLabelWidth = 80;
-var dataLabelWidth = 20;
-var maxBarWidth = 500;
 var dataset; // globally defining what dataset is so we can refer to it in Inspector (helpful for seeing if data loads and debugging)
 
 // This is a helper function that converts variables into the right data types. Necessary when working with ints/floats
