@@ -1,1 +1,2 @@
-// Javascript code 
+// Javascript code
+console.log("Hello world");

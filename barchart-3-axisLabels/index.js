@@ -2,7 +2,7 @@ var svg = d3.select("#svg-barchart");
 // Set margins - having margins makes elements more spaced out and visually nicer
 var marginLeft = 30;
 var marginRight = 30;
-var marginTop = 30;
+var marginTop = 10;
 var marginBottom = 30;
 var axisLabelWidth = 80;
 var dataLabelWidth = 20;
@@ -49,7 +49,7 @@ d3.csv('nexusblitzdata.csv', rowConverter, function(data) {
       .attr("class", "bars")
       .attr("x", marginLeft+axisLabelWidth)
       .attr("y", function(d,i) {
-        return 20*i;
+        return 20*i + marginTop;
       })
       .attr("width", function(d) {
         return xScale(d.ngames);
@@ -64,7 +64,7 @@ d3.csv('nexusblitzdata.csv', rowConverter, function(data) {
      .attr("class", "axisLabels")
      .attr("x", marginLeft + axisLabelWidth - 10)
      .attr("y", function(d,i) {
-       return 20*i + 10;
+       return 20*i + 10 + marginTop;
      })
      .text(function(d) {
        return d.champion;

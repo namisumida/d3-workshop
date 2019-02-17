@@ -37,23 +37,23 @@ d3.csv('nexusblitzdata.csv', rowConverter, function(data) {
   // It will map the min data value to the min x coordinate, max data value to the max x coordinate and everything else in between accordingly.
   // This will be used to determine the width of each bar.
   var xScale = d3.scaleLinear()
-                 .domain([d3.min(dataset, function(d) { return d.ngames; }),
+                 .domain([d3.min(dataset, function(e) { return d.ngames; }),
                           d3.max(dataset, function(d) { return d.ngames; })]) // domain is an array with the min data value and max data value
                  .range([1, maxBarWidth]); // range is an array with the min x coordinate and max x coordinate
 
    // Create bars
-   svg.selectAll("bars")
+   svg.selectAll("myElements")
       .data(dataset)
       .enter()
-      .append("rect") // bars
-      .attr("class", "bars")
-      .attr("x", marginLeft+axisLabelWidth)
-      .attr("y", function(d,i) {
-        return 20*i;
-      })
+      .append("rect") // element type rectangle
+      .attr("class", "bars") // you can give it any class name you want
       .attr("width", function(d) {
         return xScale(d.ngames);
       })
-      .attr("height", 15);
+      .attr("height", 15)
+      .attr("x", marginLeft+axisLabelWidth)
+      .attr("y", function(d,i) {
+        return marginTop + 20*i;
+      });
 
 }) // end d3.csv()

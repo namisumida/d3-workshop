@@ -2,7 +2,7 @@ var svg = d3.select("#svg-barchart");
 // Set margins - having margins makes elements more spaced out and visually nicer
 var marginLeft = 30;
 var marginRight = 30;
-var marginTop = 30;
+var marginTop = 10;
 var marginBottom = 30;
 var axisLabelWidth = 80;
 var dataLabelWidth = 20;
@@ -49,7 +49,7 @@ d3.csv('nexusblitzdata.csv', rowConverter, function(data) {
       .attr("class", "bars")
       .attr("x", marginLeft+axisLabelWidth)
       .attr("y", function(d,i) {
-        return 20*i;
+        return 20*i + marginTop;
       })
       .attr("width", function(d) {
         return xScale(d.ngames);
@@ -64,7 +64,7 @@ d3.csv('nexusblitzdata.csv', rowConverter, function(data) {
      .attr("class", "axisLabels")
      .attr("x", marginLeft + axisLabelWidth - 10)
      .attr("y", function(d,i) {
-       return 20*i + 10;
+       return 20*i + 10 + marginTop;
      })
      .text(function(d) {
        return d.champion;
@@ -80,7 +80,7 @@ d3.csv('nexusblitzdata.csv', rowConverter, function(data) {
        return marginLeft + axisLabelWidth + xScale(d.ngames) + 5;
      })
      .attr("y", function(d,i) {
-       return 20*i + 10;
+       return 20*i + 10 + marginTop;
      })
      .text(function(d) {
        return d3.format(",")(d.ngames);
@@ -99,52 +99,55 @@ d3.csv('nexusblitzdata.csv', rowConverter, function(data) {
                     .sort(function(a,b) { return b.ngames-a.ngames; }); // sort the data by # games played in descending order
     };
 
-    // Update bars
-    var bars = svg.selectAll(".bars").data(dataset); // bind new data
-    var barsEnter = bars.enter() // if there aren't enough bars, create some new ones
-                        .append("rect")
-                        .attr("class", "bars");
-    bars.exit().remove(); // if there are too many bars, remove the ones that are not needed
-    bars = bars.merge(barsEnter); // merge the new bars (barsEnter) with the bars that were already on the page
-    bars.attr("x", marginLeft+axisLabelWidth) // update all bars
-        .attr("y", function(d,i) {
-          return 20*i;
-        })
-        .attr("width", function(d) {
-          return xScale(d.ngames);
-        })
-        .attr("height", 15);
+    // Remove old bars
+    svg.selectAll(".bars").remove();
+    // Create new ones
+    svg.selectAll("bars")
+       .data(dataset)
+       .enter()
+       .append("rect") // bars
+       .attr("class", "bars")
+       .attr("x", marginLeft+axisLabelWidth)
+       .attr("y", function(d,i) {
+         return marginTop + 20*i;
+       })
+       .attr("width", function(d) {
+         return xScale(d.ngames);
+       })
+       .attr("height", 15);
 
-    // Update axis labels
-    var axisLabels = svg.selectAll(".axisLabels").data(dataset); // bind new data
-    var axisLabelsEnter = axisLabels.enter() // if there aren't enough labels, create some new ones
-                                    .append("text")
-                                    .attr("class", "axisLabels");
-    axisLabels.exit().remove(); // if there are too many labels, remove the ones that are not needed
-    axisLabels = axisLabels.merge(axisLabelsEnter); // merge the new labels with the ones already on the page
-    axisLabels.attr("x", marginLeft + axisLabelWidth - 10) // update all axis labels
-              .attr("y", function(d,i) {
-                return 20*i + 10;
-              })
-              .text(function(d) {
-                return d.champion;
-              });
+    // Remove old axis labels
+    svg.selectAll(".axisLabels").remove();
+    // Create new ones
+    svg.selectAll("axisLabels")
+       .data(dataset)
+       .enter()
+       .append("text") // champion names
+       .attr("class", "axisLabels")
+       .attr("x", marginLeft + axisLabelWidth - 10)
+       .attr("y", function(d,i) {
+         return 20*i + 10 + marginTop;
+       })
+       .text(function(d) {
+         return d.champion;
+       });
 
-    // Update data labels
-    var dataLabels = svg.selectAll(".dataLabels").data(dataset); // bind new data
-    var dataLabelsEnter = dataLabels.enter() // if there aren't enough labels, create some new ones
-                                    .append("text")
-                                    .attr("class", "dataLabels");
-    dataLabels.exit().remove(); // if there are too many data labels, remove the ones that are not needed anymore
-    dataLabels = dataLabels.merge(dataLabelsEnter); // merge the new labels with the ones already on the page
-    dataLabels.attr("x", function(d) {
-                 return marginLeft + axisLabelWidth + xScale(d.ngames) + 5;
-               })
-               .attr("y", function(d,i) {
-                 return 20*i + 10;
-               })
-               .text(function(d) {
-                 return d3.format(",")(d.ngames);
-               });
+    // Remove old data labels
+    svg.selectAll(".dataLabels").remove();
+    // Create new ones
+    svg.selectAll("dataLabels")
+       .data(dataset)
+       .enter()
+       .append("text")
+       .attr("class", "dataLabels")
+       .attr("x", function(d) {
+         return marginLeft + axisLabelWidth + xScale(d.ngames) + 5;
+       })
+       .attr("y", function(d,i) {
+         return 20*i + 10 + marginTop;
+       })
+       .text(function(d) {
+         return d3.format(",")(d.ngames);
+       });
   }); // end changing filter-class
 }) // end d3.csv()
