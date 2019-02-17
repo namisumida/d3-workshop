@@ -30,6 +30,6 @@ var rowConverter = function(d) {
 // Load in the data
 d3.csv('nexusblitzdata.csv', rowConverter, function(data) {
 
-  dataset = data; // save dataset to globally defined "dataset" variable
+  dataset = data; // save dataset to globally defined "dataset" variable so we can refer to it in the browser console
 
 }) // end d3.csv()

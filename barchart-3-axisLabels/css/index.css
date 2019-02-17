@@ -1,3 +1,5 @@
+body,html {
+}
 @font-face {
   font-family: radnika-black;
   src: url("fonts/Radnika-Black.otf");
@@ -58,11 +60,19 @@ h5 {
   height: 2630px;
   max-width: 800px;
 }
-.bars {
-  fill: #f6bba8;
+.midline {
+  stroke-width: 2;
+  opacity: .4;
 }
 .axisLabels {
   font-size: 12px;
   font-family: radnika-regular;
   text-anchor: end;
+}
+.dataLabels {
+  font-size: 12px;
+  font-family: stratum-medium;
+}
+.bars {
+  fill: #f6bba8;
 }
